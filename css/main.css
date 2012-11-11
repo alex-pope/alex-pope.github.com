@@ -18,6 +18,12 @@ body {
     padding: 0px;
     text-align: left;
 }
+a:link {
+    color:#AEAEAE;
+}
+a:visited {
+    color:#AEAEAE;
+}
 h1 {
     font-size: 1.5em;
     margin: 0px;
