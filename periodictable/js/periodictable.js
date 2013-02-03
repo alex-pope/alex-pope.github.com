@@ -1,3 +1,98 @@
+var onLoad = function () {
+    var pTable = document.getElementById("PeriodicTable");
+
+    for (var r = 0; r < 10; ++r) {
+        var tr = document.createElement("tr");
+
+        for (var c = 0; c < 18; ++c) {
+            var tableIndex = c + 18 * r;
+            var element = elements[tableIndex];
+            var td = document.createElement("td");
+            td.id = "c" + tableIndex.toString();
+
+            if (element.atomicNumber && element.atomicSymbol && element.atomicName) {
+                var container, div0, div1, div2;
+                var atomicNumberTxt, atomicSymbolTxt, atomicNameTxt;
+
+                atomicNumberTxt = document.createTextNode(element.atomicNumber.toString());
+                atomicSymbolTxt = document.createTextNode(element.atomicSymbol);
+                atomicNameTxt = document.createTextNode(element.atomicName);
+
+                div0 = document.createElement("div");
+                div0.className = "atomicNumber";
+                div0.appendChild(atomicNumberTxt);
+
+                div1 = document.createElement("div");
+                div1.className = "atomicSymbol";
+                div1.appendChild(atomicSymbolTxt);
+
+                div2 = document.createElement("div");
+                div2.className = "atomicName";
+                div2.appendChild(atomicNameTxt);
+
+                container = document.createElement("div");
+                container.className = "container";
+                container.appendChild(div0);
+                container.appendChild(div1);
+                container.appendChild(div2);
+
+                td.appendChild(container);
+                td.onclick = onClick;
+            }
+            else {
+                td.className = "empty";
+            }
+
+            tr.appendChild(td);
+        }
+
+        pTable.appendChild(tr);
+
+        containers = {
+            atomicNumber:document.getElementsByClassName("atomicNumber"),
+            atomicSymbol:document.getElementsByClassName("atomicSymbol"),
+            atomicName:document.getElementsByClassName("atomicName")
+        };
+
+        showElementContainer = {
+            atomicNumber:document.getElementById("showElementAtomicNumber"),
+            atomicSymbol:document.getElementById("showElementAtomicSymbol"),
+            atomicName:document.getElementById("showElementAtomicName")
+        };
+    }
+};
+
+var onChange = function (e) {
+    if (e.name) {
+        var elementInfo = containers[e.name];
+        var len = elementInfo.length;
+
+        for (var n = 0; n < len; ++n) {
+            elementInfo[n].style.visibility = e.checked ? "visible" : "hidden";
+        }
+    }
+};
+
+var onClick = function (evt) {
+    var id, domNode = evt.target;
+
+    // loop until id is found
+    while (!domNode.id) {
+        domNode = domNode.parentNode;
+    }
+
+    // remove 'c' prefix
+    id = domNode.id.slice(1);
+
+    var element = elements[id];
+
+    showElementContainer.atomicNumber.textContent = element.atomicNumber;
+    showElementContainer.atomicSymbol.textContent = element.atomicSymbol;
+    showElementContainer.atomicName.textContent = element.atomicName;
+};
+
+var containers, showElementContainer;
+
 var elements = [
     { atomicNumber:1, atomicSymbol:'H', atomicName:'Hydrogen' },
     {},
@@ -180,105 +275,3 @@ var elements = [
     {},
     {}
 ];
-
-var onLoad = function () {
-    var pTable = document.getElementById("PeriodicTable");
-
-    for (var r = 0; r < 10; ++r) {
-        var tr = document.createElement("tr");
-
-        for (var c = 0; c < 18; ++c) {
-            var tableIndex = c + 18 * r;
-            var element = elements[tableIndex];
-            var td = document.createElement("td");
-            td.id = "c" + tableIndex.toString();
-
-            if (element.atomicNumber && element.atomicSymbol && element.atomicName) {
-                var container, div0, div1, div2;
-                var atomicNumberTxt, atomicSymbolTxt, atomicNameTxt;
-
-                atomicNumberTxt = document.createTextNode(element.atomicNumber.toString());
-                atomicSymbolTxt = document.createTextNode(element.atomicSymbol);
-                atomicNameTxt = document.createTextNode(element.atomicName);
-
-                div0 = document.createElement("div");
-                div0.className = "atomicNumber";
-                div0.appendChild(atomicNumberTxt);
-
-                div1 = document.createElement("div");
-                div1.className = "atomicSymbol";
-                div1.appendChild(atomicSymbolTxt);
-
-                div2 = document.createElement("div");
-                div2.className = "atomicName";
-                div2.appendChild(atomicNameTxt);
-
-                container = document.createElement("div");
-                container.className = "container";
-                container.appendChild(div0);
-                container.appendChild(div1);
-                container.appendChild(div2);
-
-                td.appendChild(container);
-                td.onmouseover = mouseOver;
-                td.onmouseout = mouseOut;
-            }
-            else {
-                td.className = "empty";
-            }
-
-            tr.appendChild(td);
-        }
-
-        pTable.appendChild(tr);
-
-        containers = {
-            atomicNumber:document.getElementsByClassName("atomicNumber"),
-            atomicSymbol:document.getElementsByClassName("atomicSymbol"),
-            atomicName:document.getElementsByClassName("atomicName")
-        };
-
-        showElementContainer = {
-            atomicNumber:document.getElementById("showElementAtomicNumber"),
-            atomicSymbol:document.getElementById("showElementAtomicSymbol"),
-            atomicName:document.getElementById("showElementAtomicName")
-        };
-    }
-};
-
-var containers, showElementContainer;
-
-var onChange = function (e) {
-    if (e.name) {
-        var elementInfo = containers[e.name];
-        var len = elementInfo.length;
-
-        for (var n = 0; n < len; ++n) {
-            elementInfo[n].style.visibility = e.checked ? "visible" : "hidden";
-        }
-    }
-};
-
-var mouseOver = function (evt) {
-    var id, domNode = evt.target;
-
-    // loop until id is found
-    while (!domNode.id) {
-        domNode = domNode.parentNode;
-    }
-
-    // remove 'c' prefix
-    id = domNode.id.slice(1);
-
-    var element = elements[id];
-
-    showElementContainer.atomicNumber.textContent = element.atomicNumber || "";
-    showElementContainer.atomicSymbol.textContent = element.atomicSymbol || "";
-    showElementContainer.atomicName.textContent = element.atomicName || "";
-};
-
-var mouseOut = function (evt) {
-    showElementContainer.atomicNumber.textContent = "";
-    showElementContainer.atomicSymbol.textContent = "";
-    showElementContainer.atomicName.textContent = "";
-};
