@@ -91,6 +91,12 @@ var onClick = function (evt) {
     showElementContainer.atomicName.textContent = element.atomicName;
 };
 
+var clearShowElement = function () {
+    showElementContainer.atomicNumber.textContent = "";
+    showElementContainer.atomicSymbol.textContent = "";
+    showElementContainer.atomicName.textContent = "";
+}
+
 var containers, showElementContainer;
 
 var elements = [
