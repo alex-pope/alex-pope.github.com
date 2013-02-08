@@ -34,16 +34,16 @@ var onLoad = function () {
 
                     container = document.createElement("div");
                     container.className = "container";
+                    if (element.description) {
+                        container.className += " " + elementColors[element.description];
+                    }
+                    console.log(container.className);
                     container.appendChild(atomicNumberDiv);
                     container.appendChild(atomicSymbolDiv);
                     container.appendChild(atomicNameDiv);
 
                     td.appendChild(container);
                     td.onclick = onClick;
-
-                    if (element.description) {
-                        td.className = elementColors[element.description];
-                    }
                 }
                 else {
                     if (element.labelNumber) {
@@ -73,6 +73,7 @@ var onLoad = function () {
         };
 
         showElementContainer = {
+            container:document.getElementById("showElementContainer"),
             atomicNumber:document.getElementById("showElementAtomicNumber"),
             atomicSymbol:document.getElementById("showElementAtomicSymbol"),
             atomicName:document.getElementById("showElementAtomicName")
@@ -107,14 +108,14 @@ var onClick = function (evt) {
     showElementContainer.atomicNumber.textContent = element.atomicNumber;
     showElementContainer.atomicSymbol.textContent = element.atomicSymbol;
     showElementContainer.atomicName.textContent = element.atomicName;
-    document.getElementById("showElementCell").className = elementColors[element.description]; // TODO: Do this more elegantly.
+    showElementContainer.container.className = "container " + elementColors[element.description]; // TODO: Do this more elegantly.
 };
 
 var clearShowElement = function () {
     showElementContainer.atomicNumber.textContent = "";
     showElementContainer.atomicSymbol.textContent = "";
     showElementContainer.atomicName.textContent = "";
-    document.getElementById("showElementCell").className = ""; // TODO: Do this more elegantly.
+    showElementContainer.container.className = "container"; // TODO: Do this more elegantly.
 }
 
 var containers, showElementContainer;
@@ -310,7 +311,7 @@ var elements = [
     // label column
     { atomicNumber:55, atomicSymbol:'Cs', atomicName:'Cesium', description:3 },
     { atomicNumber:56, atomicSymbol:'Ba', atomicName:'Barium', description:4 },
-    { labelNumber:"57-71" },
+    { atomicNumber:57, atomicSymbol:'La', atomicName:'Lanthanum', description:7 },
     { atomicNumber:72, atomicSymbol:'Hf', atomicName:'Hafnium', description:7 },
     { atomicNumber:73, atomicSymbol:'Ta', atomicName:'Tantalum', description:7 },
     { atomicNumber:74, atomicSymbol:'W', atomicName:'Tungsten', description:7 },
@@ -329,7 +330,7 @@ var elements = [
     { labelNumber:7 },
     { atomicNumber:87, atomicSymbol:'Fr', atomicName:'Francium', description:3 },
     { atomicNumber:88, atomicSymbol:'Ra', atomicName:'Radium', description:4 },
-    { labelNumber:"89-103" },
+    { atomicNumber:89, atomicSymbol:'Ac', atomicName:'Actinium', description:7 },
     { atomicNumber:104, atomicSymbol:'Rf', atomicName:'Rutherfordium', description:7 },
     { atomicNumber:105, atomicSymbol:'Db', atomicName:'Dubnium', description:7 },
     { atomicNumber:106, atomicSymbol:'Sg', atomicName:'Seaborgium', description:7 },
@@ -397,7 +398,7 @@ var elements = [
     // empty
     {},
     // empty
-    { atomicNumber:57, atomicSymbol:'La', atomicName:'Lanthanum', description:7 },
+    {},
     { atomicNumber:58, atomicSymbol:'Ce', atomicName:'Cerium', description:8 },
     { atomicNumber:59, atomicSymbol:'Pr', atomicName:'Praseodymium', description:8 },
     { atomicNumber:60, atomicSymbol:'Nd', atomicName:'Neodymium', description:8 },
@@ -420,7 +421,7 @@ var elements = [
     // empty
     {},
     // empty
-    { atomicNumber:89, atomicSymbol:'Ac', atomicName:'Actinium', description:7 },
+    {},
     { atomicNumber:90, atomicSymbol:'Th', atomicName:'Thorium', description:8 },
     { atomicNumber:91, atomicSymbol:'Pa', atomicName:'Protactinium', description:8 },
     { atomicNumber:92, atomicSymbol:'U', atomicName:'Uranium', description:8 },
