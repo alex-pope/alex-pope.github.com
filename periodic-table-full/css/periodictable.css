@@ -36,18 +36,12 @@ div.atomicSymbol, .atomicSymbolSE {
     margin-bottom:8px;
 }
 
-
-
 div.container, .containerSE {
 }
 
 div.content {
     display: inline-block;
     padding: 16px;
-}
-
-div.labelTxt {
-    font-weight: bold;
 }
 
 form.options {
@@ -67,12 +61,16 @@ table.periodic, .periodicSE {
     text-align: center;
 }
 
-td.alkali {
-    background-color: #FFDD99;
+td.actinide {
+    background-color: #ff99cc;
 }
 
-td.alkaliearth {
-    background-color: #FF9999;
+td.alkali {
+    background-color: #ff6666;
+}
+
+td.alkaliEarth {
+    background-color: #ffdead;
 }
 
 td.atomicElement {
@@ -85,6 +83,7 @@ td.atomicElement {
 td.atomicGroup {
     font-weight: bold;
     padding-bottom:8px;
+    text-align: center;
     vertical-align: bottom;
 }
 
@@ -95,6 +94,12 @@ td.atomicPeriod {
     vertical-align: middle;
 }
 
+td.atomicRange {
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+}
+
 td.empty {
     border: 0;
     height: 16px;
@@ -102,27 +107,34 @@ td.empty {
     width: 32px;
 }
 
-td.hydrogen {
-    background-color: #DDDDDD;
+td.halogen {
+    background-color: #ffff99;
 }
 
-td.noblegas {
-    background-color: #FFCCFF;
+td.lanthanide {
+    background-color: #ffbfff;
 }
 
-td.nonmetal {
-    background-color: #99CCFF;
+td.metalloid {
+    background-color: #cccc99;
 }
 
-td.poormetal {
-    background-color: #99FFCC;
+td.nobleGas {
+    background-color: #c0ffff;
 }
 
-td.rareeartmetals {
-    background-color: #99CCBB;
+td.nonMetal {
+    background-color: #a0ffa0;
 }
 
-td.transitionmetal {
-    background-color: #CC9999;
+td.postTransition {
+    background-color: #cccccc;
 }
 
+td.transition {
+    background-color: #ffc0c0;
+}
+
+td.unknown {
+    background-color: #e8e8e8;
+}

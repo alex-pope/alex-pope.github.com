@@ -2,7 +2,7 @@ var onLoad = function () {
     var periodicTable = document.getElementById("PeriodicTable");
 
     for (var r = 0; r < 11; ++r) {
-        var tr = document.createElement("tr");
+        var row = document.createElement("tr");
 
         for (var c = 0; c < 19; ++c) {
             var tableIndex = c + 19 * r;
@@ -58,10 +58,10 @@ var onLoad = function () {
                 }
             }
 
-            tr.appendChild(cell);
+            row.appendChild(cell);
         }
 
-        periodicTable.appendChild(tr);
+        periodicTable.appendChild(row);
 
         containers = {
             atomicNumber:document.getElementsByClassName("atomicNumber"),
@@ -80,11 +80,11 @@ var onLoad = function () {
 
 var onChange = function (elem) {
     if (elem.name) {
-        var elementInfo = containers[elem.name];
-        var len = elementInfo.length;
+        var atomicElements = containers[elem.name];
+        var len = atomicElements.length;
 
         for (var n = 0; n < len; ++n) {
-            elementInfo[n].style.visibility = elem.checked ? "visible" : "hidden";
+            atomicElements[n].style.visibility = elem.checked ? "visible" : "hidden";
         }
     }
 };
@@ -119,14 +119,17 @@ var containers, showElementContainer;
 
 var atomicTypes = [
     'empty', // 0
-    'hydrogen', // 1
-    'noblegas', // 2
-    'alkali', // 3
-    'alkaliearth', // 4
-    'nonmetal', // 5
-    'poormetal', // 6
-    'transitionmetal', // 7
-    'rareeartmetals'    // 8
+    'alkali', // 1
+    'alkaliEarth', // 2
+    'lanthanide', // 3
+    'actinide', // 4
+    'transition', // 5
+    'postTransition', // 6
+    'metalloid', // 7
+    'nonMetal',    // 8
+    'halogen', // 9
+    'nobleGas', //10
+    'unknown' // 11
 ];
 
 var atomicElements = [
@@ -153,7 +156,7 @@ var atomicElements = [
 
     // row 1
     { label:{ txt:'1', type:'atomicPeriod' } },
-    { atomicNumber:1, atomicSymbol:'H', atomicName:'Hydrogen', description:1 },
+    { atomicNumber:1, atomicSymbol:'H', atomicName:'Hydrogen', description:8 },
     { label:{ txt:'2', type:'atomicGroup' } },
     {},
     {},
@@ -170,12 +173,12 @@ var atomicElements = [
     { label:{ txt:'15', type:'atomicGroup' } },
     { label:{ txt:'16', type:'atomicGroup' } },
     { label:{ txt:'17', type:'atomicGroup' } },
-    { atomicNumber:2, atomicSymbol:'He', atomicName:'Helium', description:2 },
+    { atomicNumber:2, atomicSymbol:'He', atomicName:'Helium', description:10 },
 
     // row 2
     { label:{ txt:'2', type:'atomicPeriod' } },
-    { atomicNumber:3, atomicSymbol:'Li', atomicName:'Lithium', description:3 },
-    { atomicNumber:4, atomicSymbol:'Be', atomicName:'Beryllium', description:4 },
+    { atomicNumber:3, atomicSymbol:'Li', atomicName:'Lithium', description:1 },
+    { atomicNumber:4, atomicSymbol:'Be', atomicName:'Beryllium', description:2 },
     {},
     {},
     {},
@@ -186,17 +189,17 @@ var atomicElements = [
     {},
     {},
     {},
-    { atomicNumber:5, atomicSymbol:'B', atomicName:'Boron', description:5 },
-    { atomicNumber:6, atomicSymbol:'C', atomicName:'Carbon', description:5 },
-    { atomicNumber:7, atomicSymbol:'N', atomicName:'Nitrogen', description:5 },
-    { atomicNumber:8, atomicSymbol:'O', atomicName:'Oxygen', description:5 },
-    { atomicNumber:9, atomicSymbol:'F', atomicName:'Fluorine', description:5 },
-    { atomicNumber:10, atomicSymbol:'Ne', atomicName:'Neon', description:2 },
+    { atomicNumber:5, atomicSymbol:'B', atomicName:'Boron', description:7 },
+    { atomicNumber:6, atomicSymbol:'C', atomicName:'Carbon', description:8 },
+    { atomicNumber:7, atomicSymbol:'N', atomicName:'Nitrogen', description:8 },
+    { atomicNumber:8, atomicSymbol:'O', atomicName:'Oxygen', description:8 },
+    { atomicNumber:9, atomicSymbol:'F', atomicName:'Fluorine', description:9 },
+    { atomicNumber:10, atomicSymbol:'Ne', atomicName:'Neon', description:10 },
 
     // row 3
     { label:{ txt:'3', type:'atomicPeriod' } },
-    { atomicNumber:11, atomicSymbol:'Na', atomicName:'Sodium', description:3 },
-    { atomicNumber:12, atomicSymbol:'Mg', atomicName:'Magnesium', description:4 },
+    { atomicNumber:11, atomicSymbol:'Na', atomicName:'Sodium', description:1 },
+    { atomicNumber:12, atomicSymbol:'Mg', atomicName:'Magnesium', description:2 },
     { label:{ txt:'3', type:'atomicGroup' } },
     { label:{ txt:'4', type:'atomicGroup' } },
     { label:{ txt:'5', type:'atomicGroup' } },
@@ -208,89 +211,89 @@ var atomicElements = [
     { label:{ txt:'11', type:'atomicGroup' } },
     { label:{ txt:'12', type:'atomicGroup' } },
     { atomicNumber:13, atomicSymbol:'Al', atomicName:'Aluminum', description:6 },
-    { atomicNumber:14, atomicSymbol:'Si', atomicName:'Silicon', description:5 },
-    { atomicNumber:15, atomicSymbol:'P', atomicName:'Phosphorus', description:5 },
-    { atomicNumber:16, atomicSymbol:'S', atomicName:'Sulfur', description:5 },
-    { atomicNumber:17, atomicSymbol:'Cl', atomicName:'Chlorine', description:5 },
-    { atomicNumber:18, atomicSymbol:'Ar', atomicName:'Argon', description:2 },
+    { atomicNumber:14, atomicSymbol:'Si', atomicName:'Silicon', description:7 },
+    { atomicNumber:15, atomicSymbol:'P', atomicName:'Phosphorus', description:8 },
+    { atomicNumber:16, atomicSymbol:'S', atomicName:'Sulfur', description:8 },
+    { atomicNumber:17, atomicSymbol:'Cl', atomicName:'Chlorine', description:9 },
+    { atomicNumber:18, atomicSymbol:'Ar', atomicName:'Argon', description:10 },
 
     // row 4
     { label:{ txt:'4', type:'atomicPeriod' } },
-    { atomicNumber:19, atomicSymbol:'K', atomicName:'Potassium', description:3 },
-    { atomicNumber:20, atomicSymbol:'Ca', atomicName:'Calcium', description:4 },
-    { atomicNumber:21, atomicSymbol:'Sc', atomicName:'Scandium', description:7 },
-    { atomicNumber:22, atomicSymbol:'Ti', atomicName:'Titanium', description:7 },
-    { atomicNumber:23, atomicSymbol:'V', atomicName:'Vanadium', description:7 },
-    { atomicNumber:24, atomicSymbol:'Cr', atomicName:'Chromium', description:7 },
-    { atomicNumber:25, atomicSymbol:'Mn', atomicName:'Manganese', description:7 },
-    { atomicNumber:26, atomicSymbol:'Fe', atomicName:'Iron', description:7 },
-    { atomicNumber:27, atomicSymbol:'Co', atomicName:'Cobalt', description:7 },
-    { atomicNumber:28, atomicSymbol:'Ni', atomicName:'Nickel', description:7 },
-    { atomicNumber:29, atomicSymbol:'Cu', atomicName:'Copper', description:7 },
-    { atomicNumber:30, atomicSymbol:'Zn', atomicName:'Zinc', description:7 },
+    { atomicNumber:19, atomicSymbol:'K', atomicName:'Potassium', description:1 },
+    { atomicNumber:20, atomicSymbol:'Ca', atomicName:'Calcium', description:2 },
+    { atomicNumber:21, atomicSymbol:'Sc', atomicName:'Scandium', description:5 },
+    { atomicNumber:22, atomicSymbol:'Ti', atomicName:'Titanium', description:5 },
+    { atomicNumber:23, atomicSymbol:'V', atomicName:'Vanadium', description:5 },
+    { atomicNumber:24, atomicSymbol:'Cr', atomicName:'Chromium', description:5 },
+    { atomicNumber:25, atomicSymbol:'Mn', atomicName:'Manganese', description:5 },
+    { atomicNumber:26, atomicSymbol:'Fe', atomicName:'Iron', description:5 },
+    { atomicNumber:27, atomicSymbol:'Co', atomicName:'Cobalt', description:5 },
+    { atomicNumber:28, atomicSymbol:'Ni', atomicName:'Nickel', description:5 },
+    { atomicNumber:29, atomicSymbol:'Cu', atomicName:'Copper', description:5 },
+    { atomicNumber:30, atomicSymbol:'Zn', atomicName:'Zinc', description:5 },
     { atomicNumber:31, atomicSymbol:'Ga', atomicName:'Gallium', description:6 },
-    { atomicNumber:32, atomicSymbol:'Ge', atomicName:'Germanium', description:6 },
-    { atomicNumber:33, atomicSymbol:'As', atomicName:'Arsenic', description:5 },
-    { atomicNumber:34, atomicSymbol:'Se', atomicName:'Selenium', description:5 },
-    { atomicNumber:35, atomicSymbol:'Br', atomicName:'Bromine', description:5 },
-    { atomicNumber:36, atomicSymbol:'Kr', atomicName:'Krypton', description:2 },
+    { atomicNumber:32, atomicSymbol:'Ge', atomicName:'Germanium', description:7 },
+    { atomicNumber:33, atomicSymbol:'As', atomicName:'Arsenic', description:7 },
+    { atomicNumber:34, atomicSymbol:'Se', atomicName:'Selenium', description:8 },
+    { atomicNumber:35, atomicSymbol:'Br', atomicName:'Bromine', description:9 },
+    { atomicNumber:36, atomicSymbol:'Kr', atomicName:'Krypton', description:10 },
 
     // row 5
     { label:{ txt:'5', type:'atomicPeriod' } },
-    { atomicNumber:37, atomicSymbol:'Rb', atomicName:'Rubidium', description:3 },
-    { atomicNumber:38, atomicSymbol:'Sr', atomicName:'Strontium', description:4 },
-    { atomicNumber:39, atomicSymbol:'Y', atomicName:'Yttrium', description:7 },
-    { atomicNumber:40, atomicSymbol:'Zr', atomicName:'Zirconium', description:7 },
-    { atomicNumber:41, atomicSymbol:'Nb', atomicName:'Niobium', description:7 },
-    { atomicNumber:42, atomicSymbol:'Mo', atomicName:'Molybdenum', description:7 },
-    { atomicNumber:43, atomicSymbol:'Tc', atomicName:'Technetium', description:7 },
-    { atomicNumber:44, atomicSymbol:'Ru', atomicName:'Ruthenium', description:7 },
-    { atomicNumber:45, atomicSymbol:'Rh', atomicName:'Rhodium', description:7 },
-    { atomicNumber:46, atomicSymbol:'Pd', atomicName:'Palladium', description:7 },
-    { atomicNumber:47, atomicSymbol:'Ag', atomicName:'Silver', description:7 },
-    { atomicNumber:48, atomicSymbol:'Cd', atomicName:'Cadmium', description:7 },
+    { atomicNumber:37, atomicSymbol:'Rb', atomicName:'Rubidium', description:1 },
+    { atomicNumber:38, atomicSymbol:'Sr', atomicName:'Strontium', description:2 },
+    { atomicNumber:39, atomicSymbol:'Y', atomicName:'Yttrium', description:5 },
+    { atomicNumber:40, atomicSymbol:'Zr', atomicName:'Zirconium', description:5 },
+    { atomicNumber:41, atomicSymbol:'Nb', atomicName:'Niobium', description:5 },
+    { atomicNumber:42, atomicSymbol:'Mo', atomicName:'Molybdenum', description:5 },
+    { atomicNumber:43, atomicSymbol:'Tc', atomicName:'Technetium', description:5 },
+    { atomicNumber:44, atomicSymbol:'Ru', atomicName:'Ruthenium', description:5 },
+    { atomicNumber:45, atomicSymbol:'Rh', atomicName:'Rhodium', description:5 },
+    { atomicNumber:46, atomicSymbol:'Pd', atomicName:'Palladium', description:5 },
+    { atomicNumber:47, atomicSymbol:'Ag', atomicName:'Silver', description:5 },
+    { atomicNumber:48, atomicSymbol:'Cd', atomicName:'Cadmium', description:5 },
     { atomicNumber:49, atomicSymbol:'In', atomicName:'Indium', description:6 },
     { atomicNumber:50, atomicSymbol:'Sn', atomicName:'Tin', description:6 },
-    { atomicNumber:51, atomicSymbol:'Sb', atomicName:'Antimony', description:6 },
-    { atomicNumber:52, atomicSymbol:'Te', atomicName:'Tellurium', description:5 },
-    { atomicNumber:53, atomicSymbol:'I', atomicName:'Iodine', description:5 },
-    { atomicNumber:54, atomicSymbol:'Xe', atomicName:'Xenon', description:2 },
+    { atomicNumber:51, atomicSymbol:'Sb', atomicName:'Antimony', description:7 },
+    { atomicNumber:52, atomicSymbol:'Te', atomicName:'Tellurium', description:7 },
+    { atomicNumber:53, atomicSymbol:'I', atomicName:'Iodine', description:9 },
+    { atomicNumber:54, atomicSymbol:'Xe', atomicName:'Xenon', description:10 },
 
     // row 6
     { label:{ txt:'6', type:'atomicPeriod' } },
-    { atomicNumber:55, atomicSymbol:'Cs', atomicName:'Cesium', description:3 },
-    { atomicNumber:56, atomicSymbol:'Ba', atomicName:'Barium', description:4 },
-    { atomicNumber:57, atomicSymbol:'La', atomicName:'Lanthanum', description:7 },
-    { atomicNumber:72, atomicSymbol:'Hf', atomicName:'Hafnium', description:7 },
-    { atomicNumber:73, atomicSymbol:'Ta', atomicName:'Tantalum', description:7 },
-    { atomicNumber:74, atomicSymbol:'W', atomicName:'Tungsten', description:7 },
-    { atomicNumber:75, atomicSymbol:'Re', atomicName:'Rhenium', description:7 },
-    { atomicNumber:76, atomicSymbol:'Os', atomicName:'Osmium', description:7 },
-    { atomicNumber:77, atomicSymbol:'Ir', atomicName:'Iridium', description:7 },
-    { atomicNumber:78, atomicSymbol:'Pt', atomicName:'Platinum', description:7 },
-    { atomicNumber:79, atomicSymbol:'Au', atomicName:'Gold', description:7 },
-    { atomicNumber:80, atomicSymbol:'Hg', atomicName:'Mercury', description:7 },
+    { atomicNumber:55, atomicSymbol:'Cs', atomicName:'Cesium', description:1 },
+    { atomicNumber:56, atomicSymbol:'Ba', atomicName:'Barium', description:2 },
+    { label:{ txt:'57-71', type:'atomicRange' } },
+    { atomicNumber:72, atomicSymbol:'Hf', atomicName:'Hafnium', description:5 },
+    { atomicNumber:73, atomicSymbol:'Ta', atomicName:'Tantalum', description:5 },
+    { atomicNumber:74, atomicSymbol:'W', atomicName:'Tungsten', description:5 },
+    { atomicNumber:75, atomicSymbol:'Re', atomicName:'Rhenium', description:5 },
+    { atomicNumber:76, atomicSymbol:'Os', atomicName:'Osmium', description:5 },
+    { atomicNumber:77, atomicSymbol:'Ir', atomicName:'Iridium', description:5 },
+    { atomicNumber:78, atomicSymbol:'Pt', atomicName:'Platinum', description:5 },
+    { atomicNumber:79, atomicSymbol:'Au', atomicName:'Gold', description:5 },
+    { atomicNumber:80, atomicSymbol:'Hg', atomicName:'Mercury', description:5 },
     { atomicNumber:81, atomicSymbol:'Tl', atomicName:'Thallium', description:6 },
     { atomicNumber:82, atomicSymbol:'Pb', atomicName:'Lead', description:6 },
     { atomicNumber:83, atomicSymbol:'Bi', atomicName:'Bismuth', description:6 },
     { atomicNumber:84, atomicSymbol:'Po', atomicName:'Polonium', description:6 },
-    { atomicNumber:85, atomicSymbol:'At', atomicName:'Astatine', description:5 },
-    { atomicNumber:86, atomicSymbol:'Rn', atomicName:'Radon', description:2 },
+    { atomicNumber:85, atomicSymbol:'At', atomicName:'Astatine', description:9 },
+    { atomicNumber:86, atomicSymbol:'Rn', atomicName:'Radon', description:10 },
 
     // row 7
     { label:{ txt:'7', type:'atomicPeriod' } },
-    { atomicNumber:87, atomicSymbol:'Fr', atomicName:'Francium', description:3 },
-    { atomicNumber:88, atomicSymbol:'Ra', atomicName:'Radium', description:4 },
-    { atomicNumber:89, atomicSymbol:'Ac', atomicName:'Actinium', description:7 },
-    { atomicNumber:104, atomicSymbol:'Rf', atomicName:'Rutherfordium', description:7 },
-    { atomicNumber:105, atomicSymbol:'Db', atomicName:'Dubnium', description:7 },
-    { atomicNumber:106, atomicSymbol:'Sg', atomicName:'Seaborgium', description:7 },
-    { atomicNumber:107, atomicSymbol:'Bh', atomicName:'Bohrium', description:7 },
-    { atomicNumber:108, atomicSymbol:'Hs', atomicName:'Hassium', description:7 },
-    { atomicNumber:109, atomicSymbol:'Mt', atomicName:'Meitnerium', description:7 },
-    { atomicNumber:110, atomicSymbol:'Ds', atomicName:'Darmstadtium', description:7 },
+    { atomicNumber:87, atomicSymbol:'Fr', atomicName:'Francium', description:1 },
+    { atomicNumber:88, atomicSymbol:'Ra', atomicName:'Radium', description:2 },
+    { label:{ txt:'89-103', type:'atomicRange' } },
+    { atomicNumber:104, atomicSymbol:'Rf', atomicName:'Rutherfordium', description:5 },
+    { atomicNumber:105, atomicSymbol:'Db', atomicName:'Dubnium', description:5 },
+    { atomicNumber:106, atomicSymbol:'Sg', atomicName:'Seaborgium', description:5 },
+    { atomicNumber:107, atomicSymbol:'Bh', atomicName:'Bohrium', description:5 },
+    { atomicNumber:108, atomicSymbol:'Hs', atomicName:'Hassium', description:5 },
+    { atomicNumber:109, atomicSymbol:'Mt', atomicName:'Meitnerium', description:11 },
+    { atomicNumber:110, atomicSymbol:'Ds', atomicName:'Darmstadtium', description:11 },
     {}, // 111
-    {}, // 112
+    {}, // 112 5
     {}, // 113
     {}, // 114
     {}, // 115
@@ -323,41 +326,41 @@ var atomicElements = [
     {},
     {},
     {},
-    {},
-    { atomicNumber:58, atomicSymbol:'Ce', atomicName:'Cerium', description:8 },
-    { atomicNumber:59, atomicSymbol:'Pr', atomicName:'Praseodymium', description:8 },
-    { atomicNumber:60, atomicSymbol:'Nd', atomicName:'Neodymium', description:8 },
-    { atomicNumber:61, atomicSymbol:'Pm', atomicName:'Promethium', description:8 },
-    { atomicNumber:62, atomicSymbol:'Sm', atomicName:'Samarium', description:8 },
-    { atomicNumber:63, atomicSymbol:'Eu', atomicName:'Europium', description:8 },
-    { atomicNumber:64, atomicSymbol:'Gd', atomicName:'Gadolinium', description:8 },
-    { atomicNumber:65, atomicSymbol:'Tb', atomicName:'Terbium', description:8 },
-    { atomicNumber:66, atomicSymbol:'Dy', atomicName:'Dysprosium', description:8 },
-    { atomicNumber:67, atomicSymbol:'Ho', atomicName:'Holmium', description:8 },
-    { atomicNumber:68, atomicSymbol:'Er', atomicName:'Erbium', description:8 },
-    { atomicNumber:69, atomicSymbol:'Tm', atomicName:'Thulium', description:8 },
-    { atomicNumber:70, atomicSymbol:'Yb', atomicName:'Ytterbium', description:8 },
-    { atomicNumber:71, atomicSymbol:'Lu', atomicName:'Lutetium', description:8 },
+    { atomicNumber:57, atomicSymbol:'La', atomicName:'Lanthanum', description:3 },
+    { atomicNumber:58, atomicSymbol:'Ce', atomicName:'Cerium', description:3 },
+    { atomicNumber:59, atomicSymbol:'Pr', atomicName:'Praseodymium', description:3 },
+    { atomicNumber:60, atomicSymbol:'Nd', atomicName:'Neodymium', description:3 },
+    { atomicNumber:61, atomicSymbol:'Pm', atomicName:'Promethium', description:3 },
+    { atomicNumber:62, atomicSymbol:'Sm', atomicName:'Samarium', description:3 },
+    { atomicNumber:63, atomicSymbol:'Eu', atomicName:'Europium', description:3 },
+    { atomicNumber:64, atomicSymbol:'Gd', atomicName:'Gadolinium', description:3 },
+    { atomicNumber:65, atomicSymbol:'Tb', atomicName:'Terbium', description:3 },
+    { atomicNumber:66, atomicSymbol:'Dy', atomicName:'Dysprosium', description:3 },
+    { atomicNumber:67, atomicSymbol:'Ho', atomicName:'Holmium', description:3 },
+    { atomicNumber:68, atomicSymbol:'Er', atomicName:'Erbium', description:3 },
+    { atomicNumber:69, atomicSymbol:'Tm', atomicName:'Thulium', description:3 },
+    { atomicNumber:70, atomicSymbol:'Yb', atomicName:'Ytterbium', description:3 },
+    { atomicNumber:71, atomicSymbol:'Lu', atomicName:'Lutetium', description:3 },
     {},
 
     // row 10
     {},
     {},
     {},
-    {},
-    { atomicNumber:90, atomicSymbol:'Th', atomicName:'Thorium', description:8 },
-    { atomicNumber:91, atomicSymbol:'Pa', atomicName:'Protactinium', description:8 },
-    { atomicNumber:92, atomicSymbol:'U', atomicName:'Uranium', description:8 },
-    { atomicNumber:93, atomicSymbol:'Np', atomicName:'Neptunium', description:8 },
-    { atomicNumber:94, atomicSymbol:'Pu', atomicName:'Plutonium', description:8 },
-    { atomicNumber:95, atomicSymbol:'Am', atomicName:'Americium', description:8 },
-    { atomicNumber:96, atomicSymbol:'Cm', atomicName:'Curium', description:8 },
-    { atomicNumber:97, atomicSymbol:'Bk', atomicName:'Berkelium', description:8 },
-    { atomicNumber:98, atomicSymbol:'Cf', atomicName:'Californium', description:8 },
-    { atomicNumber:99, atomicSymbol:'Es', atomicName:'Einsteinium', description:8 },
-    { atomicNumber:100, atomicSymbol:'Fm', atomicName:'Fermium', description:8 },
-    { atomicNumber:101, atomicSymbol:'Md', atomicName:'Mendelevium', description:8 },
-    { atomicNumber:102, atomicSymbol:'No', atomicName:'Nobelium', description:8 },
-    { atomicNumber:103, atomicSymbol:'Lr', atomicName:'Lawrencium', description:8 },
+    { atomicNumber:89, atomicSymbol:'Ac', atomicName:'Actinium', description:4 },
+    { atomicNumber:90, atomicSymbol:'Th', atomicName:'Thorium', description:4 },
+    { atomicNumber:91, atomicSymbol:'Pa', atomicName:'Protactinium', description:4 },
+    { atomicNumber:92, atomicSymbol:'U', atomicName:'Uranium', description:4 },
+    { atomicNumber:93, atomicSymbol:'Np', atomicName:'Neptunium', description:4 },
+    { atomicNumber:94, atomicSymbol:'Pu', atomicName:'Plutonium', description:4 },
+    { atomicNumber:95, atomicSymbol:'Am', atomicName:'Americium', description:4 },
+    { atomicNumber:96, atomicSymbol:'Cm', atomicName:'Curium', description:4 },
+    { atomicNumber:97, atomicSymbol:'Bk', atomicName:'Berkelium', description:4 },
+    { atomicNumber:98, atomicSymbol:'Cf', atomicName:'Californium', description:4 },
+    { atomicNumber:99, atomicSymbol:'Es', atomicName:'Einsteinium', description:4 },
+    { atomicNumber:100, atomicSymbol:'Fm', atomicName:'Fermium', description:4 },
+    { atomicNumber:101, atomicSymbol:'Md', atomicName:'Mendelevium', description:4 },
+    { atomicNumber:102, atomicSymbol:'No', atomicName:'Nobelium', description:4 },
+    { atomicNumber:103, atomicSymbol:'Lr', atomicName:'Lawrencium', description:4 },
     {}
 ];
