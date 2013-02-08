@@ -1,52 +1,66 @@
 var onLoad = function () {
-    var pTable = document.getElementById("PeriodicTable");
+    var periodicTable = document.getElementById("PeriodicTable");
 
-    for (var r = 0; r < 10; ++r) {
-        var tr = document.createElement("tr");
+    for (var r = 0; r < 11; ++r) {
+        var row = document.createElement("tr");
 
-        for (var c = 0; c < 18; ++c) {
-            var tableIndex = c + 18 * r;
-            var element = elements[tableIndex];
-            var td = document.createElement("td");
-            td.id = "c" + tableIndex.toString();
+        for (var c = 0; c < 19; ++c) {
+            var tableIndex = c + 19 * r;
+            var atomicElement = atomicElements[tableIndex];
+            var cell = document.createElement("td");
+            cell.id = "c" + tableIndex.toString();
+            cell.className = "empty";
 
-            if (element.atomicNumber && element.atomicSymbol && element.atomicName) {
-                var container, div0, div1, div2;
-                var atomicNumberTxt, atomicSymbolTxt, atomicNameTxt;
+            if (atomicElement) {
+                if (atomicElement.atomicNumber && atomicElement.atomicSymbol && atomicElement.atomicName && atomicElement.description) {
+                    var container, atomicNumberDiv, atomicSymbolDiv, atomicNameDiv;
+                    var atomicNumberTxt, atomicSymbolTxt, atomicNameTxt;
 
-                atomicNumberTxt = document.createTextNode(element.atomicNumber.toString());
-                atomicSymbolTxt = document.createTextNode(element.atomicSymbol);
-                atomicNameTxt = document.createTextNode(element.atomicName);
+                    atomicNumberTxt = document.createTextNode(atomicElement.atomicNumber.toString());
+                    atomicSymbolTxt = document.createTextNode(atomicElement.atomicSymbol);
+                    atomicNameTxt = document.createTextNode(atomicElement.atomicName);
 
-                div0 = document.createElement("div");
-                div0.className = "atomicNumber";
-                div0.appendChild(atomicNumberTxt);
+                    atomicNumberDiv = document.createElement("div");
+                    atomicNumberDiv.className = "atomicNumber";
+                    atomicNumberDiv.appendChild(atomicNumberTxt);
 
-                div1 = document.createElement("div");
-                div1.className = "atomicSymbol";
-                div1.appendChild(atomicSymbolTxt);
+                    atomicSymbolDiv = document.createElement("div");
+                    atomicSymbolDiv.className = "atomicSymbol";
+                    atomicSymbolDiv.appendChild(atomicSymbolTxt);
 
-                div2 = document.createElement("div");
-                div2.className = "atomicName";
-                div2.appendChild(atomicNameTxt);
+                    atomicNameDiv = document.createElement("div");
+                    atomicNameDiv.className = "atomicName";
+                    atomicNameDiv.appendChild(atomicNameTxt);
 
-                container = document.createElement("div");
-                container.className = "container";
-                container.appendChild(div0);
-                container.appendChild(div1);
-                container.appendChild(div2);
+                    container = document.createElement("div");
+                    container.appendChild(atomicNumberDiv);
+                    container.appendChild(atomicSymbolDiv);
+                    container.appendChild(atomicNameDiv);
 
-                td.appendChild(container);
-                td.onclick = onClick;
+                    cell.appendChild(container);
+                    cell.className = "atomicElement " + atomicTypes[atomicElement.description];
+                    cell.onclick = onClick;
+                }
+                else {
+                    if (atomicElement.label) {
+                        var labelDiv;
+                        var labelTxt;
+
+                        labelTxt = document.createTextNode(atomicElement.label.txt);
+
+                        labelDiv = document.createElement("div");
+                        labelDiv.appendChild(labelTxt);
+
+                        cell.className = atomicElement.label.type;
+                        cell.appendChild(labelDiv);
+                    }
+                }
             }
-            else {
-                td.className = "empty";
-            }
 
-            tr.appendChild(td);
+            row.appendChild(cell);
         }
 
-        pTable.appendChild(tr);
+        periodicTable.appendChild(row);
 
         containers = {
             atomicNumber:document.getElementsByClassName("atomicNumber"),
@@ -55,6 +69,7 @@ var onLoad = function () {
         };
 
         showElementContainer = {
+            showElement:document.getElementById("showElement"),
             atomicNumber:document.getElementById("showElementAtomicNumber"),
             atomicSymbol:document.getElementById("showElementAtomicSymbol"),
             atomicName:document.getElementById("showElementAtomicName")
@@ -62,13 +77,13 @@ var onLoad = function () {
     }
 };
 
-var onChange = function (e) {
-    if (e.name) {
-        var elementInfo = containers[e.name];
-        var len = elementInfo.length;
+var onChange = function (elem) {
+    if (elem.name) {
+        var atomicElements = containers[elem.name];
+        var len = atomicElements.length;
 
         for (var n = 0; n < len; ++n) {
-            elementInfo[n].style.visibility = e.checked ? "visible" : "hidden";
+            atomicElements[n].style.visibility = elem.checked ? "visible" : "hidden";
         }
     }
 };
@@ -81,17 +96,19 @@ var onClick = function (evt) {
         domNode = domNode.parentNode;
     }
 
-    // remove 'c' prefix
+    // removes 'c' prefix
     id = domNode.id.slice(1);
 
-    var element = elements[id];
+    var atomicElement = atomicElements[id];
 
-    showElementContainer.atomicNumber.textContent = element.atomicNumber;
-    showElementContainer.atomicSymbol.textContent = element.atomicSymbol;
-    showElementContainer.atomicName.textContent = element.atomicName;
+    showElementContainer.showElement.className = "atomicElement " + atomicTypes[atomicElement.description];
+    showElementContainer.atomicNumber.textContent = atomicElement.atomicNumber;
+    showElementContainer.atomicSymbol.textContent = atomicElement.atomicSymbol;
+    showElementContainer.atomicName.textContent = atomicElement.atomicName;
 };
 
 var clearShowElement = function () {
+    showElementContainer.showElement.className = "atomicElement";
     showElementContainer.atomicNumber.textContent = "";
     showElementContainer.atomicSymbol.textContent = "";
     showElementContainer.atomicName.textContent = "";
@@ -99,9 +116,25 @@ var clearShowElement = function () {
 
 var containers, showElementContainer;
 
-var elements = [
-    { atomicNumber:1, atomicSymbol:'H', atomicName:'Hydrogen' },
+var atomicTypes = [
+    'empty', // 0
+    'alkali', // 1
+    'alkaliEarth', // 2
+    'lanthanide', // 3
+    'actinide', // 4
+    'transition', // 5
+    'postTransition', // 6
+    'metalloid', // 7
+    'nonMetal',    // 8
+    'halogen', // 9
+    'nobleGas', //10
+    'unknown' // 11
+];
+
+var atomicElements = [
+    // row 0
     {},
+    { label:{ txt:'1', type:'atomicGroup' } },
     {},
     {},
     {},
@@ -117,10 +150,13 @@ var elements = [
     {},
     {},
     {},
-    { atomicNumber:2, atomicSymbol:'He', atomicName:'Helium' },
-    { atomicNumber:3, atomicSymbol:'Li', atomicName:'Lithium' },
-    { atomicNumber:4, atomicSymbol:'Be', atomicName:'Beryllium' },
     {},
+    { label:{ txt:'18', type:'atomicGroup' } },
+
+    // row 1
+    { label:{ txt:'1', type:'atomicPeriod' } },
+    { atomicNumber:1, atomicSymbol:'H', atomicName:'Hydrogen', description:8 },
+    { label:{ txt:'2', type:'atomicGroup' } },
     {},
     {},
     {},
@@ -130,15 +166,18 @@ var elements = [
     {},
     {},
     {},
-    { atomicNumber:5, atomicSymbol:'B', atomicName:'Boron' },
-    { atomicNumber:6, atomicSymbol:'C', atomicName:'Carbon' },
-    { atomicNumber:7, atomicSymbol:'N', atomicName:'Nitrogen' },
-    { atomicNumber:8, atomicSymbol:'O', atomicName:'Oxygen' },
-    { atomicNumber:9, atomicSymbol:'F', atomicName:'Fluorine' },
-    { atomicNumber:10, atomicSymbol:'Ne', atomicName:'Neon' },
-    { atomicNumber:11, atomicSymbol:'Na', atomicName:'Sodium' },
-    { atomicNumber:12, atomicSymbol:'Mg', atomicName:'Magnesium' },
     {},
+    { label:{ txt:'13', type:'atomicGroup' } },
+    { label:{ txt:'14', type:'atomicGroup' } },
+    { label:{ txt:'15', type:'atomicGroup' } },
+    { label:{ txt:'16', type:'atomicGroup' } },
+    { label:{ txt:'17', type:'atomicGroup' } },
+    { atomicNumber:2, atomicSymbol:'He', atomicName:'Helium', description:10 },
+
+    // row 2
+    { label:{ txt:'2', type:'atomicPeriod' } },
+    { atomicNumber:3, atomicSymbol:'Li', atomicName:'Lithium', description:1 },
+    { atomicNumber:4, atomicSymbol:'Be', atomicName:'Beryllium', description:2 },
     {},
     {},
     {},
@@ -148,69 +187,102 @@ var elements = [
     {},
     {},
     {},
-    { atomicNumber:13, atomicSymbol:'Al', atomicName:'Aluminum' },
-    { atomicNumber:14, atomicSymbol:'Si', atomicName:'Silicon' },
-    { atomicNumber:15, atomicSymbol:'P', atomicName:'Phosphorus' },
-    { atomicNumber:16, atomicSymbol:'S', atomicName:'Sulfur' },
-    { atomicNumber:17, atomicSymbol:'Cl', atomicName:'Chlorine' },
-    { atomicNumber:18, atomicSymbol:'Ar', atomicName:'Argon' },
-    { atomicNumber:19, atomicSymbol:'K', atomicName:'Potassium' },
-    { atomicNumber:20, atomicSymbol:'Ca', atomicName:'Calcium' },
-    { atomicNumber:21, atomicSymbol:'Sc', atomicName:'Scandium' },
-    { atomicNumber:22, atomicSymbol:'Ti', atomicName:'Titanium' },
-    { atomicNumber:23, atomicSymbol:'V', atomicName:'Vanadium' },
-    { atomicNumber:24, atomicSymbol:'Cr', atomicName:'Chromium' },
-    { atomicNumber:25, atomicSymbol:'Mn', atomicName:'Manganese' },
-    { atomicNumber:26, atomicSymbol:'Fe', atomicName:'Iron' },
-    { atomicNumber:27, atomicSymbol:'Co', atomicName:'Cobalt' },
-    { atomicNumber:28, atomicSymbol:'Ni', atomicName:'Nickel' },
-    { atomicNumber:29, atomicSymbol:'Cu', atomicName:'Copper' },
-    { atomicNumber:30, atomicSymbol:'Zn', atomicName:'Zinc' },
-    { atomicNumber:31, atomicSymbol:'Ga', atomicName:'Gallium' },
-    { atomicNumber:32, atomicSymbol:'Ge', atomicName:'Germanium' },
-    { atomicNumber:33, atomicSymbol:'As', atomicName:'Arsenic' },
-    { atomicNumber:34, atomicSymbol:'Se', atomicName:'Selenium' },
-    { atomicNumber:35, atomicSymbol:'Br', atomicName:'Bromine' },
-    { atomicNumber:36, atomicSymbol:'Kr', atomicName:'Krypton' },
-    { atomicNumber:37, atomicSymbol:'Rb', atomicName:'Rubidium' },
-    { atomicNumber:38, atomicSymbol:'Sr', atomicName:'Strontium' },
     {},
+    { atomicNumber:5, atomicSymbol:'B', atomicName:'Boron', description:7 },
+    { atomicNumber:6, atomicSymbol:'C', atomicName:'Carbon', description:8 },
+    { atomicNumber:7, atomicSymbol:'N', atomicName:'Nitrogen', description:8 },
+    { atomicNumber:8, atomicSymbol:'O', atomicName:'Oxygen', description:8 },
+    { atomicNumber:9, atomicSymbol:'F', atomicName:'Fluorine', description:9 },
+    { atomicNumber:10, atomicSymbol:'Ne', atomicName:'Neon', description:10 },
+
+    // row 3
+    { label:{ txt:'3', type:'atomicPeriod' } },
+    { atomicNumber:11, atomicSymbol:'Na', atomicName:'Sodium', description:1 },
+    { atomicNumber:12, atomicSymbol:'Mg', atomicName:'Magnesium', description:2 },
+    { label:{ txt:'3', type:'atomicGroup' } },
+    { label:{ txt:'4', type:'atomicGroup' } },
+    { label:{ txt:'5', type:'atomicGroup' } },
+    { label:{ txt:'6', type:'atomicGroup' } },
+    { label:{ txt:'7', type:'atomicGroup' } },
+    { label:{ txt:'8', type:'atomicGroup' } },
+    { label:{ txt:'9', type:'atomicGroup' } },
+    { label:{ txt:'10', type:'atomicGroup' } },
+    { label:{ txt:'11', type:'atomicGroup' } },
+    { label:{ txt:'12', type:'atomicGroup' } },
+    { atomicNumber:13, atomicSymbol:'Al', atomicName:'Aluminum', description:6 },
+    { atomicNumber:14, atomicSymbol:'Si', atomicName:'Silicon', description:7 },
+    { atomicNumber:15, atomicSymbol:'P', atomicName:'Phosphorus', description:8 },
+    { atomicNumber:16, atomicSymbol:'S', atomicName:'Sulfur', description:8 },
+    { atomicNumber:17, atomicSymbol:'Cl', atomicName:'Chlorine', description:9 },
+    { atomicNumber:18, atomicSymbol:'Ar', atomicName:'Argon', description:10 },
+
+    // row 4
+    { label:{ txt:'4', type:'atomicPeriod' } },
+    { atomicNumber:19, atomicSymbol:'K', atomicName:'Potassium', description:1 },
+    { atomicNumber:20, atomicSymbol:'Ca', atomicName:'Calcium', description:2 },
+    { atomicNumber:21, atomicSymbol:'Sc', atomicName:'Scandium', description:5 },
+    { atomicNumber:22, atomicSymbol:'Ti', atomicName:'Titanium', description:5 },
+    { atomicNumber:23, atomicSymbol:'V', atomicName:'Vanadium', description:5 },
+    { atomicNumber:24, atomicSymbol:'Cr', atomicName:'Chromium', description:5 },
+    { atomicNumber:25, atomicSymbol:'Mn', atomicName:'Manganese', description:5 },
+    { atomicNumber:26, atomicSymbol:'Fe', atomicName:'Iron', description:5 },
+    { atomicNumber:27, atomicSymbol:'Co', atomicName:'Cobalt', description:5 },
+    { atomicNumber:28, atomicSymbol:'Ni', atomicName:'Nickel', description:5 },
+    { atomicNumber:29, atomicSymbol:'Cu', atomicName:'Copper', description:5 },
+    { atomicNumber:30, atomicSymbol:'Zn', atomicName:'Zinc', description:5 },
+    { atomicNumber:31, atomicSymbol:'Ga', atomicName:'Gallium', description:6 },
+    { atomicNumber:32, atomicSymbol:'Ge', atomicName:'Germanium', description:7 },
+    { atomicNumber:33, atomicSymbol:'As', atomicName:'Arsenic', description:7 },
+    { atomicNumber:34, atomicSymbol:'Se', atomicName:'Selenium', description:8 },
+    { atomicNumber:35, atomicSymbol:'Br', atomicName:'Bromine', description:9 },
+    { atomicNumber:36, atomicSymbol:'Kr', atomicName:'Krypton', description:10 },
+
+    // row 5
+    { label:{ txt:'5', type:'atomicPeriod' } },
+    { atomicNumber:37, atomicSymbol:'Rb', atomicName:'Rubidium', description:1 },
+    { atomicNumber:38, atomicSymbol:'Sr', atomicName:'Strontium', description:2 },
     {},
     {},
     {},
     {},
     {},
     {},
-    { atomicNumber:46, atomicSymbol:'Pd', atomicName:'Palladium' },
-    { atomicNumber:47, atomicSymbol:'Ag', atomicName:'Silver' },
-    { atomicNumber:48, atomicSymbol:'Cd', atomicName:'Cadmium' },
     {},
-    { atomicNumber:50, atomicSymbol:'Sn', atomicName:'Tin' },
-    { atomicNumber:51, atomicSymbol:'Sb', atomicName:'Antimony' },
-    { atomicNumber:52, atomicSymbol:'Te', atomicName:'Tellurium' },
-    { atomicNumber:53, atomicSymbol:'I', atomicName:'Iodine' },
-    { atomicNumber:54, atomicSymbol:'Xe', atomicName:'Xenon' },
-    { atomicNumber:55, atomicSymbol:'Cs', atomicName:'Cesium' },
-    { atomicNumber:56, atomicSymbol:'Ba', atomicName:'Barium' },
+    { atomicNumber:46, atomicSymbol:'Pd', atomicName:'Palladium', description:5 },
+    { atomicNumber:47, atomicSymbol:'Ag', atomicName:'Silver', description:5 },
+    { atomicNumber:48, atomicSymbol:'Cd', atomicName:'Cadmium', description:5 },
     {},
+    { atomicNumber:50, atomicSymbol:'Sn', atomicName:'Tin', description:6 },
+    { atomicNumber:51, atomicSymbol:'Sb', atomicName:'Antimony', description:7 },
+    { atomicNumber:52, atomicSymbol:'Te', atomicName:'Tellurium', description:7 },
+    { atomicNumber:53, atomicSymbol:'I', atomicName:'Iodine', description:9 },
+    { atomicNumber:54, atomicSymbol:'Xe', atomicName:'Xenon', description:10 },
+
+    // row 6
+    { label:{ txt:'6', type:'atomicPeriod' } },
+    { atomicNumber:55, atomicSymbol:'Cs', atomicName:'Cesium', description:1 },
+    { atomicNumber:56, atomicSymbol:'Ba', atomicName:'Barium', description:2 },
     {},
     {},
-    { atomicNumber:74, atomicSymbol:'W', atomicName:'Tungsten' },
     {},
+    { atomicNumber:74, atomicSymbol:'W', atomicName:'Tungsten', description:5 },
     {},
     {},
-    { atomicNumber:78, atomicSymbol:'Pt', atomicName:'Platinum' },
-    { atomicNumber:79, atomicSymbol:'Au', atomicName:'Gold' },
-    { atomicNumber:80, atomicSymbol:'Hg', atomicName:'Mercury' },
     {},
-    { atomicNumber:82, atomicSymbol:'Pb', atomicName:'Lead' },
-    { atomicNumber:83, atomicSymbol:'Bi', atomicName:'Bismuth' },
+    { atomicNumber:78, atomicSymbol:'Pt', atomicName:'Platinum', description:5 },
+    { atomicNumber:79, atomicSymbol:'Au', atomicName:'Gold', description:5 },
+    { atomicNumber:80, atomicSymbol:'Hg', atomicName:'Mercury', description:5 },
     {},
+    { atomicNumber:82, atomicSymbol:'Pb', atomicName:'Lead', description:6 },
+    { atomicNumber:83, atomicSymbol:'Bi', atomicName:'Bismuth', description:6 },
     {},
-    { atomicNumber:86, atomicSymbol:'Rn', atomicName:'Radon' },
-    { atomicNumber:87, atomicSymbol:'Fr', atomicName:'Francium' },
-    { atomicNumber:88, atomicSymbol:'Ra', atomicName:'Radium' },
     {},
+    { atomicNumber:86, atomicSymbol:'Rn', atomicName:'Radon', description:10 },
+
+    // row 7
+    { label:{ txt:'7', type:'atomicPeriod' } },
+    { atomicNumber:87, atomicSymbol:'Fr', atomicName:'Francium', description:1 },
+    { atomicNumber:88, atomicSymbol:'Ra', atomicName:'Radium', description:2 },
     {},
     {},
     {},
@@ -227,6 +299,8 @@ var elements = [
     {},
     {},
     {},
+
+    // row 8
     {},
     {},
     {},
@@ -246,6 +320,8 @@ var elements = [
     {},
     {},
     {},
+
+    // row 9
     {},
     {},
     {},
@@ -265,9 +341,15 @@ var elements = [
     {},
     {},
     {},
+
+    // row 10
     {},
-    { atomicNumber:92, atomicSymbol:'U', atomicName:'Uranium' },
     {},
+    {},
+    {},
+    {},
+    {},
+    { atomicNumber:92, atomicSymbol:'U', atomicName:'Uranium', description:4 },
     {},
     {},
     {},

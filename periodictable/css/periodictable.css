@@ -18,15 +18,22 @@ time, mark, audio, video {
     vertical-align: middle;
 }
 
+body {
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
 div.atomicName, .atomicNameSE {
 }
 
 div.atomicNumber, .atomicNumberSE {
+    margin-bottom:8px;
 }
 
 div.atomicSymbol, .atomicSymbolSE {
     font-size: 16px;
     font-weight: bold;
+    margin-bottom:8px;
 }
 
 div.container, .containerSE {
@@ -50,17 +57,84 @@ span.checkboxes {
 table.periodic, .periodicSE {
     border-collapse: collapse;
     border-spacing: 0;
-    font: 12px sans-serif;
+    font: 11px sans-serif;
     text-align: center;
 }
 
-td {
-    border: 1px solid black;
-    height: 76px;
-    min-width: 76px;
-    width: 76px;
+td.actinide {
+    background-color: #ff99cc;
+}
+
+td.alkali {
+    background-color: #ff6666;
+}
+
+td.alkaliEarth {
+    background-color: #ffdead;
+}
+
+td.atomicElement {
+    border: 1px solid #808080;
+    height: 84px;
+    min-width: 84px;
+    width: 84px;
+}
+
+td.atomicGroup {
+    font-weight: bold;
+    padding-bottom:8px;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+td.atomicPeriod {
+    font-weight: bold;
+    padding-right:8px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+td.atomicRange {
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
 }
 
 td.empty {
     border: 0;
+    height: 16px;
+    min-width: 32px;
+    width: 32px;
+}
+
+td.halogen {
+    background-color: #ffff99;
+}
+
+td.lanthanide {
+    background-color: #ffbfff;
+}
+
+td.metalloid {
+    background-color: #cccc99;
+}
+
+td.nobleGas {
+    background-color: #c0ffff;
+}
+
+td.nonMetal {
+    background-color: #a0ffa0;
+}
+
+td.postTransition {
+    background-color: #cccccc;
+}
+
+td.transition {
+    background-color: #ffc0c0;
+}
+
+td.unknown {
+    background-color: #e8e8e8;
 }

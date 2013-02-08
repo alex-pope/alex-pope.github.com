@@ -292,14 +292,14 @@ var atomicElements = [
     { atomicNumber:108, atomicSymbol:'Hs', atomicName:'Hassium', description:5 },
     { atomicNumber:109, atomicSymbol:'Mt', atomicName:'Meitnerium', description:11 },
     { atomicNumber:110, atomicSymbol:'Ds', atomicName:'Darmstadtium', description:11 },
-    {}, // 111
-    {}, // 112 5
-    {}, // 113
-    {}, // 114
-    {}, // 115
-    {}, // 116
-    {}, // 117
-    {}, // 118
+    { atomicNumber:111, atomicSymbol:'Rg', atomicName:'Roentgenium', description:11 },
+    { atomicNumber:112, atomicSymbol:'Cn', atomicName:'Copernicium', description:5 },
+    { atomicNumber:113, atomicSymbol:'Uut', atomicName:'Ununtrium', description:11 },
+    { atomicNumber:114, atomicSymbol:'Fl', atomicName:'Flerovium', description:11 },
+    { atomicNumber:115, atomicSymbol:'Uup', atomicName:'Ununpentium', description:11 },
+    { atomicNumber:116, atomicSymbol:'Lv', atomicName:'Livermorium', description:11 },
+    { atomicNumber:117, atomicSymbol:'Uus', atomicName:'Ununseptium', description:11 },
+    { atomicNumber:118, atomicSymbol:'Uuo', atomicName:'Ununoctium', description:11 },
 
     // row 8
     {},
