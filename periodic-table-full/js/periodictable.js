@@ -42,16 +42,17 @@ var onLoad = function () {
                     cell.onclick = onClick;
                 }
                 else {
-                    if (atomicElement.labelTxt) {
+                    if (atomicElement.label) {
                         var labelDiv;
                         var labelTxt;
 
-                        labelTxt = document.createTextNode(atomicElement.labelTxt.toString());
+                        labelTxt = document.createTextNode(atomicElement.label.txt);
 
                         labelDiv = document.createElement("div");
-                        labelDiv.className = "atomicName"; // same style as others for now
+                        //labelDiv.className = "label " + atomicElement.label.type; // same style as others for now
                         labelDiv.appendChild(labelTxt);
 
+                        cell.className = atomicElement.label.type;
                         cell.appendChild(labelDiv);
                     }
                 }
@@ -105,7 +106,6 @@ var onClick = function (evt) {
     showElementContainer.atomicNumber.textContent = atomicElement.atomicNumber;
     showElementContainer.atomicSymbol.textContent = atomicElement.atomicSymbol;
     showElementContainer.atomicName.textContent = atomicElement.atomicName;
-
 };
 
 var clearShowElement = function () {
@@ -118,21 +118,21 @@ var clearShowElement = function () {
 var containers, showElementContainer;
 
 var atomicTypes = [
-    "empty", // 0
-    "hydrogen", // 1
-    "noblegas", // 2
-    "alkali", // 3
-    "alkaliearth", // 4
-    "nonmetal", // 5
-    "poormetal", // 6
-    "transitionmetal", // 7
-    "rareeartmetals"    // 8
+    'empty', // 0
+    'hydrogen', // 1
+    'noblegas', // 2
+    'alkali', // 3
+    'alkaliearth', // 4
+    'nonmetal', // 5
+    'poormetal', // 6
+    'transitionmetal', // 7
+    'rareeartmetals'    // 8
 ];
 
 var atomicElements = [
     // row 0
     {},
-    { labelTxt:'1' },
+    { label:{ txt:'1', type:'atomicGroup' } },
     {},
     {},
     {},
@@ -149,12 +149,12 @@ var atomicElements = [
     {},
     {},
     {},
-    { labelTxt:'18' },
+    { label:{ txt:'18', type:'atomicGroup' } },
 
     // row 1
-    { labelTxt:'1' },
+    { label:{ txt:'1', type:'atomicPeriod' } },
     { atomicNumber:1, atomicSymbol:'H', atomicName:'Hydrogen', description:1 },
-    { labelTxt:'2' },
+    { label:{ txt:'2', type:'atomicGroup' } },
     {},
     {},
     {},
@@ -165,15 +165,15 @@ var atomicElements = [
     {},
     {},
     {},
-    { labelTxt:'13' },
-    { labelTxt:'14' },
-    { labelTxt:'15' },
-    { labelTxt:'16' },
-    { labelTxt:'17' },
+    { label:{ txt:'13', type:'atomicGroup' } },
+    { label:{ txt:'14', type:'atomicGroup' } },
+    { label:{ txt:'15', type:'atomicGroup' } },
+    { label:{ txt:'16', type:'atomicGroup' } },
+    { label:{ txt:'17', type:'atomicGroup' } },
     { atomicNumber:2, atomicSymbol:'He', atomicName:'Helium', description:2 },
 
     // row 2
-    { labelTxt:'2' },
+    { label:{ txt:'2', type:'atomicPeriod' } },
     { atomicNumber:3, atomicSymbol:'Li', atomicName:'Lithium', description:3 },
     { atomicNumber:4, atomicSymbol:'Be', atomicName:'Beryllium', description:4 },
     {},
@@ -194,19 +194,19 @@ var atomicElements = [
     { atomicNumber:10, atomicSymbol:'Ne', atomicName:'Neon', description:2 },
 
     // row 3
-    { labelTxt:'3' },
+    { label:{ txt:'3', type:'atomicPeriod' } },
     { atomicNumber:11, atomicSymbol:'Na', atomicName:'Sodium', description:3 },
     { atomicNumber:12, atomicSymbol:'Mg', atomicName:'Magnesium', description:4 },
-    { labelTxt:'3' },
-    { labelTxt:'4' },
-    { labelTxt:'5' },
-    { labelTxt:'6' },
-    { labelTxt:'7' },
-    { labelTxt:'8' },
-    { labelTxt:'9' },
-    { labelTxt:'10' },
-    { labelTxt:'11' },
-    { labelTxt:'12' },
+    { label:{ txt:'3', type:'atomicGroup' } },
+    { label:{ txt:'4', type:'atomicGroup' } },
+    { label:{ txt:'5', type:'atomicGroup' } },
+    { label:{ txt:'6', type:'atomicGroup' } },
+    { label:{ txt:'7', type:'atomicGroup' } },
+    { label:{ txt:'8', type:'atomicGroup' } },
+    { label:{ txt:'9', type:'atomicGroup' } },
+    { label:{ txt:'10', type:'atomicGroup' } },
+    { label:{ txt:'11', type:'atomicGroup' } },
+    { label:{ txt:'12', type:'atomicGroup' } },
     { atomicNumber:13, atomicSymbol:'Al', atomicName:'Aluminum', description:6 },
     { atomicNumber:14, atomicSymbol:'Si', atomicName:'Silicon', description:5 },
     { atomicNumber:15, atomicSymbol:'P', atomicName:'Phosphorus', description:5 },
@@ -215,7 +215,7 @@ var atomicElements = [
     { atomicNumber:18, atomicSymbol:'Ar', atomicName:'Argon', description:2 },
 
     // row 4
-    { labelTxt:'4' },
+    { label:{ txt:'4', type:'atomicPeriod' } },
     { atomicNumber:19, atomicSymbol:'K', atomicName:'Potassium', description:3 },
     { atomicNumber:20, atomicSymbol:'Ca', atomicName:'Calcium', description:4 },
     { atomicNumber:21, atomicSymbol:'Sc', atomicName:'Scandium', description:7 },
@@ -236,7 +236,7 @@ var atomicElements = [
     { atomicNumber:36, atomicSymbol:'Kr', atomicName:'Krypton', description:2 },
 
     // row 5
-    { labelTxt:'5' },
+    { label:{ txt:'5', type:'atomicPeriod' } },
     { atomicNumber:37, atomicSymbol:'Rb', atomicName:'Rubidium', description:3 },
     { atomicNumber:38, atomicSymbol:'Sr', atomicName:'Strontium', description:4 },
     { atomicNumber:39, atomicSymbol:'Y', atomicName:'Yttrium', description:7 },
@@ -257,7 +257,7 @@ var atomicElements = [
     { atomicNumber:54, atomicSymbol:'Xe', atomicName:'Xenon', description:2 },
 
     // row 6
-    { labelTxt:'6' },
+    { label:{ txt:'6', type:'atomicPeriod' } },
     { atomicNumber:55, atomicSymbol:'Cs', atomicName:'Cesium', description:3 },
     { atomicNumber:56, atomicSymbol:'Ba', atomicName:'Barium', description:4 },
     { atomicNumber:57, atomicSymbol:'La', atomicName:'Lanthanum', description:7 },
@@ -278,7 +278,7 @@ var atomicElements = [
     { atomicNumber:86, atomicSymbol:'Rn', atomicName:'Radon', description:2 },
 
     // row 7
-    { labelTxt:'7'},
+    { label:{ txt:'7', type:'atomicPeriod' } },
     { atomicNumber:87, atomicSymbol:'Fr', atomicName:'Francium', description:3 },
     { atomicNumber:88, atomicSymbol:'Ra', atomicName:'Radium', description:4 },
     { atomicNumber:89, atomicSymbol:'Ac', atomicName:'Actinium', description:7 },

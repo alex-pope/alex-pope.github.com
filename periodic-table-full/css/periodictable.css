@@ -27,12 +27,16 @@ div.atomicName, .atomicNameSE {
 }
 
 div.atomicNumber, .atomicNumberSE {
+    margin-bottom:8px;
 }
 
 div.atomicSymbol, .atomicSymbolSE {
     font-size: 16px;
     font-weight: bold;
+    margin-bottom:8px;
 }
+
+
 
 div.container, .containerSE {
 }
@@ -40,6 +44,10 @@ div.container, .containerSE {
 div.content {
     display: inline-block;
     padding: 16px;
+}
+
+div.labelTxt {
+    font-weight: bold;
 }
 
 form.options {
@@ -55,7 +63,7 @@ span.checkboxes {
 table.periodic, .periodicSE {
     border-collapse: collapse;
     border-spacing: 0;
-    font: 12px sans-serif;
+    font: 11px sans-serif;
     text-align: center;
 }
 
@@ -72,6 +80,19 @@ td.atomicElement {
     height: 84px;
     min-width: 84px;
     width: 84px;
+}
+
+td.atomicGroup {
+    font-weight: bold;
+    padding-bottom:8px;
+    vertical-align: bottom;
+}
+
+td.atomicPeriod {
+    font-weight: bold;
+    padding-right:8px;
+    text-align: right;
+    vertical-align: middle;
 }
 
 td.empty {
