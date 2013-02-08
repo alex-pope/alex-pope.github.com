@@ -35,44 +35,6 @@ div.atomicSymbol, .atomicSymbolSE {
 }
 
 div.container, .containerSE {
-    display: table-cell;
-    height: 84px;
-    min-width: 84px;
-    width: 84px;
-    border: 2px solid white;
-    vertical-align: middle;
-}
-
-div.hydrogen {
-    border-color: #DDDDDD;
-}
-
-div.noblegas {
-    border-color: #FFCCFF;
-}
-
-div.alkali {
-    border-color: #FFDD99;
-}
-
-div.alkaliearth {
-    border-color: #FF9999;
-}
-
-div.nonmetal {
-    border-color: #99CCFF;
-}
-
-div.poormetal {
-    border-color: #99FFCC;
-}
-
-div.transitionmetal {
-    border-color: #CC9999;
-}
-
-div.rareeartmetals {
-    border-color: #99CCBB;
 }
 
 div.content {
@@ -97,9 +59,49 @@ table.periodic, .periodicSE {
     text-align: center;
 }
 
+td.alkali {
+    background-color: #FFDD99;
+}
+
+td.alkaliearth {
+    background-color: #FF9999;
+}
+
+td.atomicElement {
+    border: 1px solid #808080;
+    height: 84px;
+    min-width: 84px;
+    width: 84px;
+}
+
 td.empty {
     border: 0;
     height: 16px;
     min-width: 32px;
     width: 32px;
 }
+
+td.hydrogen {
+    background-color: #DDDDDD;
+}
+
+td.noblegas {
+    background-color: #FFCCFF;
+}
+
+td.nonmetal {
+    background-color: #99CCFF;
+}
+
+td.poormetal {
+    background-color: #99FFCC;
+}
+
+td.rareeartmetals {
+    background-color: #99CCBB;
+}
+
+td.transitionmetal {
+    background-color: #CC9999;
+}
+
