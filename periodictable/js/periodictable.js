@@ -1,15 +1,15 @@
 var onLoad = function () {
-    var periodicTable = document.getElementById("PeriodicTable");
+    var periodicTable = document.getElementById('PeriodicTable');
 
     for (var r = 0; r < 11; ++r) {
-        var row = document.createElement("tr");
+        var row = document.createElement('tr');
 
         for (var c = 0; c < 19; ++c) {
             var tableIndex = c + 19 * r;
             var atomicElement = atomicElements[tableIndex];
-            var cell = document.createElement("td");
-            cell.id = "c" + tableIndex.toString();
-            cell.className = "empty";
+            var cell = document.createElement('td');
+            cell.id = 'c' + tableIndex.toString();
+            cell.className = 'empty';
 
             if (atomicElement) {
                 if (atomicElement.atomicNumber && atomicElement.atomicSymbol && atomicElement.atomicName && atomicElement.description) {
@@ -20,25 +20,25 @@ var onLoad = function () {
                     atomicSymbolTxt = document.createTextNode(atomicElement.atomicSymbol);
                     atomicNameTxt = document.createTextNode(atomicElement.atomicName);
 
-                    atomicNumberDiv = document.createElement("div");
-                    atomicNumberDiv.className = "atomicNumber";
+                    atomicNumberDiv = document.createElement('div');
+                    atomicNumberDiv.className = 'atomicNumber';
                     atomicNumberDiv.appendChild(atomicNumberTxt);
 
-                    atomicSymbolDiv = document.createElement("div");
-                    atomicSymbolDiv.className = "atomicSymbol";
+                    atomicSymbolDiv = document.createElement('div');
+                    atomicSymbolDiv.className = 'atomicSymbol';
                     atomicSymbolDiv.appendChild(atomicSymbolTxt);
 
-                    atomicNameDiv = document.createElement("div");
-                    atomicNameDiv.className = "atomicName";
+                    atomicNameDiv = document.createElement('div');
+                    atomicNameDiv.className = 'atomicName';
                     atomicNameDiv.appendChild(atomicNameTxt);
 
-                    container = document.createElement("div");
+                    container = document.createElement('div');
                     container.appendChild(atomicNumberDiv);
                     container.appendChild(atomicSymbolDiv);
                     container.appendChild(atomicNameDiv);
 
                     cell.appendChild(container);
-                    cell.className = "atomicElement " + atomicTypes[atomicElement.description];
+                    cell.className = 'atomicElement ' + atomicTypes[atomicElement.description];
                     cell.onclick = onClick;
                 }
                 else {
@@ -48,7 +48,7 @@ var onLoad = function () {
 
                         labelTxt = document.createTextNode(atomicElement.label.txt);
 
-                        labelDiv = document.createElement("div");
+                        labelDiv = document.createElement('div');
                         labelDiv.appendChild(labelTxt);
 
                         cell.className = atomicElement.label.type;
@@ -63,16 +63,16 @@ var onLoad = function () {
         periodicTable.appendChild(row);
 
         containers = {
-            atomicNumber:document.getElementsByClassName("atomicNumber"),
-            atomicSymbol:document.getElementsByClassName("atomicSymbol"),
-            atomicName:document.getElementsByClassName("atomicName")
+            atomicNumber:document.getElementsByClassName('atomicNumber'),
+            atomicSymbol:document.getElementsByClassName('atomicSymbol'),
+            atomicName:document.getElementsByClassName('atomicName')
         };
 
         showElementContainer = {
-            showElement:document.getElementById("showElement"),
-            atomicNumber:document.getElementById("showElementAtomicNumber"),
-            atomicSymbol:document.getElementById("showElementAtomicSymbol"),
-            atomicName:document.getElementById("showElementAtomicName")
+            showElement:document.getElementById('showElement'),
+            atomicNumber:document.getElementById('showElementAtomicNumber'),
+            atomicSymbol:document.getElementById('showElementAtomicSymbol'),
+            atomicName:document.getElementById('showElementAtomicName')
         };
     }
 };
@@ -83,7 +83,7 @@ var onChange = function (elem) {
         var len = atomicElements.length;
 
         for (var n = 0; n < len; ++n) {
-            atomicElements[n].style.visibility = elem.checked ? "visible" : "hidden";
+            atomicElements[n].style.visibility = elem.checked ? 'visible' : 'hidden';
         }
     }
 };
@@ -101,34 +101,34 @@ var onClick = function (evt) {
 
     var atomicElement = atomicElements[id];
 
-    showElementContainer.showElement.className = "atomicElement " + atomicTypes[atomicElement.description];
+    showElementContainer.showElement.className = 'atomicElement ' + atomicTypes[atomicElement.description];
     showElementContainer.atomicNumber.textContent = atomicElement.atomicNumber;
     showElementContainer.atomicSymbol.textContent = atomicElement.atomicSymbol;
     showElementContainer.atomicName.textContent = atomicElement.atomicName;
 };
 
 var clearShowElement = function () {
-    showElementContainer.showElement.className = "atomicElement";
-    showElementContainer.atomicNumber.textContent = "";
-    showElementContainer.atomicSymbol.textContent = "";
-    showElementContainer.atomicName.textContent = "";
+    showElementContainer.showElement.className = 'atomicElement';
+    showElementContainer.atomicNumber.textContent = '';
+    showElementContainer.atomicSymbol.textContent = '';
+    showElementContainer.atomicName.textContent = '';
 }
 
 var containers, showElementContainer;
 
 var atomicTypes = [
-    'empty', // 0
-    'alkali', // 1
-    'alkaliEarth', // 2
-    'lanthanide', // 3
-    'actinide', // 4
-    'transition', // 5
-    'postTransition', // 6
-    'metalloid', // 7
-    'nonMetal',    // 8
-    'halogen', // 9
-    'nobleGas', //10
-    'unknown' // 11
+    'empty',
+    'alkali',
+    'alkaliEarth',
+    'lanthanide',
+    'actinide',
+    'transition',
+    'postTransition',
+    'metalloid',
+    'nonMetal',
+    'halogen',
+    'nobleGas',
+    'unknown'
 ];
 
 var atomicElements = [

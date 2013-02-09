@@ -27,13 +27,13 @@ div.atomicName, .atomicNameSE {
 }
 
 div.atomicNumber, .atomicNumberSE {
-    margin-bottom:8px;
+    margin-bottom: 8px;
 }
 
 div.atomicSymbol, .atomicSymbolSE {
     font-size: 16px;
     font-weight: bold;
-    margin-bottom:8px;
+    margin-bottom: 8px;
 }
 
 div.container, .containerSE {
@@ -82,14 +82,14 @@ td.atomicElement {
 
 td.atomicGroup {
     font-weight: bold;
-    padding-bottom:8px;
+    padding-bottom: 8px;
     text-align: center;
     vertical-align: bottom;
 }
 
 td.atomicPeriod {
     font-weight: bold;
-    padding-right:8px;
+    padding-right: 8px;
     text-align: right;
     vertical-align: middle;
 }
