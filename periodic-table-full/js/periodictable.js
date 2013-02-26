@@ -1,17 +1,17 @@
 var onLoad = function () {
-    var periodicTable = document.getElementById('PeriodicTable');
+	var periodicTable = document.getElementById('PeriodicTable');
 
 	for (var r = 0; r < 11; ++r) {
-        var row = document.createElement('tr');
+		var row = document.createElement('tr');
 
-        for (var c = 0; c < 19; ++c) {
-            var tableIndex = c + 19 * r;
-            var cell = document.createElement('td');
-            cell.id = 'c' + tableIndex.toString();
-            cell.className = 'empty';
+		for (var c = 0; c < 19; ++c) {
+			var tableIndex = c + 19 * r;
+			var cell = document.createElement('td');
+			cell.id = 'c' + tableIndex.toString();
+			cell.className = 'empty';
 
-            row.appendChild(cell);
-        }
+			row.appendChild(cell);
+		}
 		
 		periodicTable.appendChild(row);
 	}
@@ -81,58 +81,58 @@ var onLoad = function () {
 };
 
 var onChange = function (elem) {
-    if (elem.name) {
-        var atomicElements = containers[elem.name];
-        var len = atomicElements.length;
+	if (elem.name) {
+		var atomicElements = containers[elem.name];
+		var len = atomicElements.length;
 
-        for (var n = 0; n < len; ++n) {
-            atomicElements[n].style.visibility = elem.checked ? 'visible' : 'hidden';
-        }
-    }
+		for (var n = 0; n < len; ++n) {
+			atomicElements[n].style.visibility = elem.checked ? 'visible' : 'hidden';
+		}
+	}
 };
 
 var onClick = function (evt) {
-    var id, domNode = evt.target;
+	var id, domNode = evt.target;
 
-    // loop until id is found
-    while (!domNode.id) {
-        domNode = domNode.parentNode;
-    }
+	// loop until id is found
+	while (!domNode.id) {
+		domNode = domNode.parentNode;
+	}
 
-    // removes 'c[n]_' prefix
-    id = domNode.id;
+	// removes 'c[n]_' prefix
+	id = domNode.id;
 	id = id.slice(id.indexOf('_') + 1);
 
-    var atomicElement = atomicElements[id];
+	var atomicElement = atomicElements[id];
 
-    showElementContainer.showElement.className = 'atomicElement ' + atomicTypes[atomicElement.description];
-    showElementContainer.atomicNumber.textContent = atomicElement.atomicNumber;
-    showElementContainer.atomicSymbol.textContent = atomicElement.atomicSymbol;
-    showElementContainer.atomicName.textContent = atomicElement.atomicName;
+	showElementContainer.showElement.className = 'atomicElement ' + atomicTypes[atomicElement.description];
+	showElementContainer.atomicNumber.textContent = atomicElement.atomicNumber;
+	showElementContainer.atomicSymbol.textContent = atomicElement.atomicSymbol;
+	showElementContainer.atomicName.textContent = atomicElement.atomicName;
 };
 
 var clearShowElement = function () {
-    showElementContainer.showElement.className = 'atomicElement';
-    showElementContainer.atomicNumber.textContent = '';
-    showElementContainer.atomicSymbol.textContent = '';
-    showElementContainer.atomicName.textContent = '';
+	showElementContainer.showElement.className = 'atomicElement';
+	showElementContainer.atomicNumber.textContent = '';
+	showElementContainer.atomicSymbol.textContent = '';
+	showElementContainer.atomicName.textContent = '';
 };
 
 var containers, showElementContainer;
 
 var atomicTypes = [
-    'empty',
-    'alkali',
-    'alkaliEarth',
-    'lanthanide',
-    'actinide',
-    'transition',
-    'postTransition',
-    'metalloid',
-    'nonMetal',
-    'halogen',
-    'nobleGas',
-    'unknown'
+	'empty',
+	'alkali',
+	'alkaliEarth',
+	'lanthanide',
+	'actinide',
+	'transition',
+	'postTransition',
+	'metalloid',
+	'nonMetal',
+	'halogen',
+	'nobleGas',
+	'unknown'
 ];
 
 var atomicElements = [
