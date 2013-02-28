@@ -6,7 +6,7 @@
 	<script src="js/periodictable.js" type="text/javascript"></script>
 	<link href="css/periodictable.css" rel="stylesheet" type="text/css"/>
 </head>
-<body onload="onLoad();">
+<body onload="window.PeriodicTable.onLoad();">
 <div class="content">
 	This is a work in progress.<br />
 	Currently best viewed on 1920 x 1080.<br />
@@ -18,20 +18,20 @@
 		<span class="checkboxes">
 			<div><label>
 				Show Atomic Number:&nbsp
-				<input type="checkbox" name="atomicNumber" checked="true" onchange="onChange(this);">
+				<input type="checkbox" name="atomicNumber" checked="true" onchange="window.PeriodicTable.onChange(this);">
 			</label></div>
 			<div><label>
 				Show Atomic Symbol:&nbsp
-				<input type="checkbox" name="atomicSymbol" checked="true" onchange="onChange(this);">
+				<input type="checkbox" name="atomicSymbol" checked="true" onchange="window.PeriodicTable.onChange(this);">
 			</label></div>
 			<div><label>
 				Show Atomic Name:&nbsp
-				<input type="checkbox" name="atomicName" checked="true" onchange="onChange(this);">
+				<input type="checkbox" name="atomicName" checked="true" onchange="window.PeriodicTable.onChange(this);">
 			</label></div>
 		</span>
 		<table class="periodicSE" id="showElementTable">
 			<tr>
-				<td class="atomicElement" id="showElement" onclick="clearShowElement();">
+				<td class="atomicElement" id="showElement" onclick="window.PeriodicTable.clearShowElement();">
 					<div class="containerSE">
 						<div class="atomicNumberSE" id="showElementAtomicNumber"></div>
 						<div class="atomicSymbolSE" id="showElementAtomicSymbol"></div>
