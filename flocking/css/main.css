@@ -4,11 +4,15 @@
 }
 
 body {
-	padding:20px;
+	margin:20px;
 }
 
 body > div,
 body > canvas {
 	margin: 0 auto;
 	width:800px;
+}
+
+body > canvas {
+	display:block;
 }
